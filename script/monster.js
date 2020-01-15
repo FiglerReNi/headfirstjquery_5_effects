@@ -1,50 +1,25 @@
 $(document).ready(function () {
-    setInterval(lightning_one, 4000);
-    setInterval(lightning_two, 5000);
-    setInterval(lightning_three, 7000);
 
-    var headclix = 0;
-    var eyesclix = 0;
-    var noseclix = 0;
-    var mouthclix = 0;
+    lightningOn();
+    window.onblur = lightningStop;
+    window.onfocus = lightningOn;
+
+    var clixArray = [0,0,0,0];
+    var one;
+    var two;
+    var three;
 
     $('#head').click(function () {
-        if (headclix < 9) {
-            //relative position
-            animation('#head', "-=367px");
-            headclix++;
-        } else {
-            //absolute position
-            animation('#head', "0px");
-            headclix = 0;
-        }
+        clixArray[0] = clickImg(clixArray[0], this);
     });
     $('#eyes').click(function () {
-        if (eyesclix < 9) {
-            animation('#eyes', "-=367px");
-            eyesclix++;
-        } else {
-            animation('#eyes', "0px");
-            eyesclix = 0;
-        }
+        clixArray[1] = clickImg(clixArray[1], this);
     });
     $('#nose').click(function () {
-        if (noseclix < 9) {
-            animation('#nose', "-=367px");
-            noseclix++;
-        } else {
-            animation('#nose', "0px");
-            noseclix = 0;
-        }
+        clixArray[2] = clickImg(clixArray[2], this);
     });
     $('#mouth').click(function () {
-        if (mouthclix < 9) {
-            animation('#mouth', "-=367px");
-            mouthclix++;
-        } else {
-            animation('#mouth',"0px");
-            mouthclix = 0;
-        }
+        clixArray[3] = clickImg(clixArray[3], this);
     });
 });
 
@@ -59,16 +34,41 @@ function lightning_one(){
     $('#lightning1').fadeIn(250).fadeOut(250);
 }
 function lightning_two(){
-    $('#lightning2').fadeIn('fast').fadeOut('fast');
+    $('#lightning2').fadeIn(250).fadeOut(250);
 }
 function lightning_three(){
-    $('#lightning3').fadeIn('fast').fadeOut('fast');
+    $('#lightning3').fadeIn(250).fadeOut(250);
+}
+
+function lightningStop(){
+    clearInterval(one);
+    clearInterval(two);
+    clearInterval(three);
+}
+
+function lightningOn(){
+     one = setInterval(lightning_one, 4000);
+     two = setInterval(lightning_two, 5000);
+     three = setInterval(lightning_three, 7000);
 }
 
 function animation(item, a){
     $(item).animate({left:a}, 500);
 }
 
+function clickImg(clix, item) {
+    if (clix < 9) {
+        //relative position
+        animation(item, "-=367px");
+        clix++;
+        return clix;
+    } else {
+        //absolute position
+        animation(item, "0px");
+        clix = 0;
+        return clix;
+    }
+}
 //effects
 //CSS opacity property
 //fadeIn - slow, normal, fast, miliseconds
