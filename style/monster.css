@@ -83,3 +83,8 @@ p{
     width: 367px;
     height: 117px;
 }
+
+button{
+    background-color: green;
+    color: white;
+}
